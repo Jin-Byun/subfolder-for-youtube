@@ -35,23 +35,24 @@ import {
 import { filterContent, reorganizeFilter } from "./toggler";
 
 const openLeftPane = (
-	isLoaded: boolean,
 	userInfo: HTMLElement,
-): Promise<[HTMLElement, HTMLElement]> => {
+): Promise<[HTMLElement, HTMLElement, boolean]> => {
 	return new Promise((res) => {
 		waitForElementLoad(NAVBAR_ID).then((navBar) => {
-			if (!isLoaded || !navBar.getAttribute(OPENED) !== null) {
+			const isOpen = navBar.checkVisibility();
+			if (!isOpen) {
 				navBar.style.display = "none"; // hide action being done
 				navBar.setAttribute(OPENED, "");
 			}
-			res([navBar, userInfo]);
+			res([navBar, userInfo, isOpen]);
 		});
 	});
 };
 
-const checkSubscription = ([navBar, userInfo]: [
-	navBar: HTMLElement,
-	userInfo: HTMLElement,
+const checkSubscription = ([navBar, userInfo, isOpen]: [
+	HTMLElement,
+	HTMLElement,
+	boolean,
 ]): Promise<[HTMLElement, HTMLElement | null]> => {
 	return new Promise((res, rej) => {
 		waitForElementLoad("downloads-entry").then((downloadGuide) => {
@@ -74,7 +75,7 @@ const checkSubscription = ([navBar, userInfo]: [
 				default:
 					rej("has no subscriptions");
 			}
-			navBar.removeAttribute(OPENED);
+			if (!isOpen) navBar.removeAttribute(OPENED);
 			navBar.style.removeProperty("display");
 			userInfo.style.removeProperty("display");
 		});
@@ -127,7 +128,7 @@ const main = () => {
 					if (initialized) return;
 					initialized = true;
 					initUserInfo()
-						.then((userInfo) => openLeftPane(flag, userInfo))
+						.then((userInfo) => openLeftPane(userInfo))
 						.then(checkSubscription)
 						.then(async ([subscriptionList, expander]) => {
 							// expand subscription section

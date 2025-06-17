@@ -5,11 +5,11 @@ import packageJson from "./package.json";
  */
 const manifest: chrome.runtime.ManifestV3 = {
 	manifest_version: 3,
-	name: packageJson.name,
+	name: packageJson.displayName,
 	version: packageJson.version,
 	description: packageJson.description,
-	permissions: ["activeTab", "tabs", "webRequest", "storage"],
-	host_permissions: ["https://*/*"],
+	permissions: ["activeTab", "webRequest", "storage"],
+	host_permissions: ["https://www.youtube.com/*"],
 	externally_connectable: {
 		matches: ["https://www.youtube.com/*"],
 	},
@@ -18,7 +18,7 @@ const manifest: chrome.runtime.ManifestV3 = {
 		type: "module",
 	},
 	action: {
-		default_title: "My YT Organizer",
+		default_title: "SubFolder For YouTube",
 		default_icon: "icon-34.png",
 		default_popup: "src/popup/index.html",
 	},

@@ -5,7 +5,6 @@ class ManifestParser {
 
 	static convertManifestToString(manifest: Manifest): string {
 		if (!process.env.__FIREFOX__) {
-			console.log("here");
 			return JSON.stringify(manifest, null, 2);
 		}
 		return JSON.stringify(

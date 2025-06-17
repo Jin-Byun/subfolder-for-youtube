@@ -1,6 +1,7 @@
 {
   "name": "subfolder-for-youtube",
-  "version": "1.0.0",
+  "displayName": "SubFolder For YouTube",
+  "version": "1.0.1",
   "description": "Organize youtube subscription by user-defined categories.",
   "author": "Jin Byun",
   "license": "MIT",
