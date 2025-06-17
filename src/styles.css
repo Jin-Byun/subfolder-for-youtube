@@ -49,6 +49,9 @@
       line-height: 2.2rem;
       padding: 5px 8px;
       margin-left: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
