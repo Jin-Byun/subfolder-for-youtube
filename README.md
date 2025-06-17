@@ -1,4 +1,4 @@
-# Youtube Subscription Organizer
+# Subfolder For Youtube
 
 ## What is this?
 
@@ -25,7 +25,7 @@ I have few hobbies/interests. They include programming(Go, Rust, JS/TS, Elixir, 
 - [x] Filtering logic for each folder when on subscription page.
 - [x] Make extension popup for function toggles and proper logo
 - [x] Update storage logic for more feature.
-- [ ] Handle list view of subscription page.
+- [x] Handle list view of subscription page.
 
 ## How to use it
 

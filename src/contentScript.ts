@@ -142,7 +142,6 @@ const main = () => {
 							const anchorToSubscription = document.querySelector<HTMLElement>(
 								SUBSCRIPTION_TAB_LABEL,
 							);
-							console.log(anchorToSubscription);
 							header.addEventListener("click", () => {
 								anchorToSubscription.click();
 							});

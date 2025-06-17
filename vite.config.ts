@@ -13,7 +13,7 @@ const isProduction = process.env.NODE_ENV !== "development";
 export default defineConfig({
 	plugins: [
 		react(),
-		makeManifest(manifest, outDir, {
+		makeManifest(manifest, outDir, rootDir, isProduction, {
 			contentScriptCssKey: regenerateCacheInvalidationKey(),
 		}),
 	],

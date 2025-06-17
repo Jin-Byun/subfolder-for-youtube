@@ -1,6 +1,6 @@
 {
-  "name": "youtube-subscription-organizer",
-  "version": "0.0.5",
+  "name": "subfolder-for-youtube",
+  "version": "1.0.0",
   "description": "Organize youtube subscription by user-defined categories.",
   "author": "Jin Byun",
   "license": "MIT",
@@ -32,7 +32,8 @@
     "rollup": "^4.40.1",
     "typescript": "^5.8.3",
     "vite": "^6.3.3",
-    "ws": "^8.18.1"
+    "ws": "^8.18.1",
+    "zip-a-folder": "^3.1.9"
   },
   "dependencies": {
     "react": "^19.1.0",

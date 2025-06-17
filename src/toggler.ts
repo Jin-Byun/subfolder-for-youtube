@@ -35,25 +35,27 @@ import {
 } from "./storage";
 import { subscriptionObserver } from "./utils";
 
-// create and append a floating context menu with option for delete and edit
+// display menu with option for delete and edit
 export function toggleOption(this: HTMLDivElement, e: MouseEvent) {
 	const clickedOn = e.target as HTMLElement;
 	if (![EXPAND_CLASS, this.className].includes(clickedOn.className)) {
-		return;
+		return; // rightclick on channel does not do anything.
 	}
 	e.preventDefault();
 	if (this.classList[1]) {
+		// folder not expanded
 		this.click();
 	}
 	for (const tab of getAllYSOTabs(this)) {
+		// display the menu
 		tab.toggleAttribute(ACTIVATE);
 	}
 }
 
-export function toggleEditClass(folder: HTMLElement): void {
-	folder.classList.toggle(EDIT_CLASS);
-	for (const f of getAllYSOTabs(folder)) {
-		f.classList.toggle(EDIT_CLASS);
+// toggle whether the folder is being edited or not
+export function toggleEditClass(folder: HTMLElement) {
+	for (const el of [folder, ...getAllYSOTabs(folder)]) {
+		el.classList.toggle(EDIT_CLASS);
 	}
 }
 
