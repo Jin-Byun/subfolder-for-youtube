@@ -39,7 +39,7 @@ const openLeftPane = (
 ): Promise<[HTMLElement, HTMLElement, boolean]> => {
 	return new Promise((res) => {
 		waitForElementLoad(NAVBAR_ID).then((navBar) => {
-			const isOpen = navBar.checkVisibility();
+			const isOpen = navBar.hasAttribute(OPENED);
 			if (!isOpen) {
 				navBar.style.display = "none"; // hide action being done
 				navBar.setAttribute(OPENED, "");
@@ -135,21 +135,19 @@ const main = () => {
 							subscriptionList.classList.add(SUBSCRIPTION_LIST_CLASS);
 							await expandSubscription(expander, subscriptionList);
 							await prependExtensionItems(subscriptionList);
-							const subscriptionTabLabel =
-								subscriptionList.previousElementSibling as HTMLElement;
-							const header =
-								subscriptionTabLabel.firstElementChild as HTMLElement;
-							header.style.cursor = "pointer";
-							const anchorToSubscription = document.querySelector<HTMLElement>(
-								SUBSCRIPTION_TAB_LABEL,
-							);
-							header.addEventListener("click", () => {
-								anchorToSubscription.click();
-							});
-							subscriptionTabLabel.style.display = "flex";
-							subscriptionTabLabel.style.alignItems = "center";
-							subscriptionTabLabel.append(
-								createNewFolderButton(subscriptionList),
+							// Appending add Folder button
+							const subscriptionHeading =
+								subscriptionList.firstElementChild as HTMLElement;
+							subscriptionHeading.style.display = "flex";
+							subscriptionHeading.style.alignItems = "center";
+							const subscriptionHeader =
+								subscriptionHeading.firstElementChild as HTMLElement;
+							subscriptionHeader.style.flex = "auto";
+							const subscriptionEntry =
+								subscriptionHeader.firstElementChild as HTMLElement;
+							subscriptionEntry.style.width = "calc(100% - 2rem)";
+							subscriptionHeading.append(
+								createNewFolderButton(subscriptionList, subscriptionHeading),
 							);
 						});
 					break;
