@@ -168,11 +168,8 @@ export const filterContent = async (
 	) {
 		const card = videoCards[idx];
 		card.removeAttribute(FIRST_COLUMN);
-		const anchor = getElementFromId<HTMLAnchorElement>(
-			VIDEOCARD_ANCHOR_ID,
-			card,
-		);
-		if (!anchor || !channelTitles.includes(anchor.title)) {
+		const ChannelAnchor = card.querySelectorAll("a")[2];
+		if (!ChannelAnchor || !channelTitles.includes(ChannelAnchor.textContent)) {
 			card.classList.remove(FILTER_CLASS);
 			continue;
 		}

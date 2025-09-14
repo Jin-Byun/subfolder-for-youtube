@@ -135,8 +135,8 @@ const SaveButton = (subList: Element): HTMLButtonElement =>
 				toggleChannelContextMenu(subList);
 				subFolder.style.setProperty(NUM_CHANNEL, `${selectedSubs.length}`);
 				subFolder.append(...selectedSubs);
-
-				const firstChannel = getElementFromTag(CHANNEL_TAG, subList);
+				const query = `${CHANNEL_TAG}:not(#header-entry)`;
+				const firstChannel = subList.querySelector(query);
 				if (firstChannel.closest(`.${FOLDER_CLASS}`)) {
 					firstChannel.closest(`.${FOLDER_CLASS}`).before(subFolder);
 				} else {
