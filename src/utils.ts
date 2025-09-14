@@ -45,7 +45,7 @@ export const waitForElementLoad = (
 		const timeoutID = setTimeout(() => {
 			observer.disconnect();
 			reject(`waited too long for: ${selector}`);
-		}, 10000);
+		}, 20000);
 
 		function elementLoaded() {
 			if (findingFunction(selector)) {

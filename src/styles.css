@@ -2,15 +2,29 @@
   font-size: 2em;
 }
 
+@property --btn-opacity {
+  syntax: '<number>'; /* <- defined as type number for the transition to work */
+  initial-value: 0.1;
+  inherits: false;
+}
+
 #create-new-folder-button {
   font-size: 1.8em;
   line-height: 14px;
-  padding-inline: 4px;
+  margin-right: 1.5rem;
+  padding: 6px 8px;
   border-radius: 4px;
   cursor: pointer;
   color: var(--yt-spec-text-primary);
+  transition: background-color 200ms;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
   @media (prefers-color-scheme: dark) {
     background: rgba(255, 255, 255, 0.1);
+    &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
   }
 }
 
@@ -38,20 +52,23 @@
 
   > div {
     font-family: "Roboto", "Arial", sans-serif;
-    &[contenteditable="true"] {
-      background-color: rgb(0, 0, 0, 0.1);
-      cursor: text;
-    }
+
     &.click-2-expand {
-      width: 50%;
+      width: calc(50% - 12px);
       height: 20px;
       font-size: 1.4rem;
       line-height: 2.2rem;
-      padding: 5px 8px;
-      margin-left: 12px;
+      padding: 1px 8px;
+      margin-inline: 12px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      margin-top: 4px;
+
+      &[contenteditable="true"] {
+        background-color: rgb(0, 0, 0, 0.1);
+        cursor: text;
+      }
     }
   }
 
@@ -89,9 +106,7 @@
       padding-inline: 5px;
       margin-left: 10px;
       font-size: 1.3rem;
-      line-height: 2.6rem;
-      display: flex;
-      align-items: center;
+      line-height: 28px;
       overflow: clip;
       white-space: nowrap;
       &[data-placeholder="Please set title"],

@@ -65,25 +65,25 @@ const extractChannelsFromNodeList = (
 		};
 	});
 
+const isAnchorWithTitle = (el: Element): el is HTMLAnchorElement => {
+	return el.tagName === "A" && !!(el as HTMLAnchorElement).title;
+};
 const extractTItlesFromNodeList = (
 	list: NodeListOf<Element> | HTMLCollection,
 ): string[] =>
-	Array.from(list).flatMap(
-		(el) => (el.firstElementChild as HTMLAnchorElement)?.title ?? [],
+	Array.from(list).flatMap(({ firstElementChild: el }) =>
+		isAnchorWithTitle(el) ? el.title : [],
 	);
 /** Helper End */
 
 export const setCurrId = (title: string): Promise<void> =>
 	sessionSetter(CURR_USER_ID, title);
 
-export const setSubscriptionOrder = (
-	list: Element | string[],
-): Promise<void> => {
-	return sessionSetter(
+export const setSubscriptionOrder = (list: Element | string[]): Promise<void> =>
+	sessionSetter(
 		SUB_ORDER_KEY,
 		Array.isArray(list) ? list : extractTItlesFromNodeList(list.children),
 	);
-};
 
 export const setUserFolder = async (data: FolderData) =>
 	syncSetter(await UserStorageId(), data);

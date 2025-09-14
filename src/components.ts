@@ -135,8 +135,8 @@ const SaveButton = (subList: Element): HTMLButtonElement =>
 				toggleChannelContextMenu(subList);
 				subFolder.style.setProperty(NUM_CHANNEL, `${selectedSubs.length}`);
 				subFolder.append(...selectedSubs);
-
-				const firstChannel = getElementFromTag(CHANNEL_TAG, subList);
+				const query = `${CHANNEL_TAG}:not(#header-entry)`;
+				const firstChannel = subList.querySelector(query);
 				if (firstChannel.closest(`.${FOLDER_CLASS}`)) {
 					firstChannel.closest(`.${FOLDER_CLASS}`).before(subFolder);
 				} else {
@@ -168,13 +168,16 @@ function removePlaceholder(this: HTMLDivElement) {
 	this.removeAttribute(DATA_PLACEHOLDER);
 }
 
-export const createNewFolderButton = (list: Element): HTMLButtonElement =>
+export const createNewFolderButton = (
+	list: Element,
+	heading: Element,
+): HTMLButtonElement =>
 	new Component<HTMLButtonElement>("button")
 		.setId(NEW_BUTTION_ID)
 		.addInnerText("+")
 		.addEventListener("click", () => {
 			toggleChannelContextMenu(list);
-			list.prepend(
+			heading.after(
 				new Component<HTMLDivElement>().addClass(FOLDER_CLASS, "new").append(
 					new Component<HTMLDivElement>()
 						.addAttributes({
@@ -192,6 +195,7 @@ export const channelOrderLabels = (title: string): HTMLElement =>
 
 // todo: channel data will have structure: {title: string, channelPath: path following youtube/feed/subscriptions/UC{url}}
 export async function prependExtensionItems(list: Element) {
+	const listHeading = list.firstElementChild as HTMLElement;
 	const folders = await getUserStoredFolders();
 	if (folders) {
 		const nodes: Array<Element> = Array.from(list.children);
@@ -204,10 +208,10 @@ export async function prependExtensionItems(list: Element) {
 					return channels.some((ch) => ch.title === a.title);
 				}),
 			);
-			list.prepend(folder);
+			listHeading.after(folder);
 		}
 	}
 	const channelOrder = await getSubscriptionOrder();
 	const divLabels: HTMLElement[] = channelOrder.map(channelOrderLabels);
-	list.prepend(...divLabels);
+	listHeading.after(...divLabels);
 }
